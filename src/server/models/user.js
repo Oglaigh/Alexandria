@@ -7,7 +7,7 @@ let roles = {
     message: '{VALUE} no es un rol valido'
 }
 
-const UserSchema = new Schema({
+const userSchema = new Schema({
     name: {
         type: String,
         required: [true,"El nombre del usuario es obligatorio"]
@@ -47,10 +47,10 @@ const UserSchema = new Schema({
     }
 })
 
-UserSchema.plugin(uniqueValidateor, {message: '{PATH} debe de ser unico'})
+userSchema.plugin(uniqueValidateor, {message: '{PATH} debe de ser unico'})
 
 //Al momento de imprimir el JSON, el usuario no visualizara la contraseña
-UserSchema.methods.toJSON = function(){
+userSchema.methods.toJSON = function(){
     let user = this;
     let userObjet = user.toObject();
     delete userObjet.password;
@@ -58,4 +58,4 @@ UserSchema.methods.toJSON = function(){
     return userObjet;
 }
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', userSchema);

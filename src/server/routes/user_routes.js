@@ -35,10 +35,7 @@ router.post('/', async (req, res) => {
             ok:true,
             user : userDB
         })
-
     });
-
 })
-
 
 module.exports = router;

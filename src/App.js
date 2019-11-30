@@ -14,6 +14,7 @@ function App() {
             <th>Titulo</th>
             <th>Autor</th>
             <th>Propietario</th>
+            <th>Fecha</th>
             <th></th>
             <th></th>
           </tr>

@@ -1,4 +1,3 @@
-
 require('./config/config');
 
 const express = require('express');
@@ -40,4 +39,3 @@ server.get('/', function (req, res) {
   server.listen(process.env.PORT,()=>{
   console.log(`Server running on port: ${server.get('port')}`);
 });
-  

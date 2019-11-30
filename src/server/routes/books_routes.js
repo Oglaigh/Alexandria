@@ -3,12 +3,14 @@ const router = express.Router();
 
 const Books = require('../models/book');
 
+//Get Users
 router.get('/', async (req, res) => {
     const book = await Books.find();
     console.log(book);
     res.json(book);
 });
 
+//POST User
 router.post('/', async (req, res) => {
     const {title, author, library,owner,owned} = req.body;
     const book = new Books({
@@ -22,6 +24,8 @@ router.post('/', async (req, res) => {
     await book.save();
     res.json({status: 'Book successfully added!'});
 });
+
+//PUT User
 
 router.put('/:id', async (req, res) => {
     const {title, author, library,owner,owned} = req.body;
