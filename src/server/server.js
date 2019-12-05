@@ -20,9 +20,8 @@ server.use(bodyParser.urlencoded({ extended: false }))
 server.use(bodyParser.json())
 
 
-/*Routes*/
-server.use('/api/books',require('./routes/books_routes'))
-server.use('/api/user',require('./routes/user_routes'))
+/*Global Configuration Routes */
+server.use(require('./Routes/index'));
 
 
 //Statics Files
