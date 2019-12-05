@@ -7,10 +7,37 @@ const router = express.Router();
 
 const User = require('../models/user');
 
+//GET User (Paginado)
 router.get('/', async (req, res) => {
-    let user = await User.find();
-    console.log(user);
-    res.json(user);
+    
+    let desde = req.query.desde || 0;
+    desde = Number(desde);
+
+    let limite = req.query.limite || 5;
+    limit = Number(limite);
+
+    User.find({})
+        .skip(desde)
+        .limit(limite)
+        .exec( (err, users) => {
+
+            if(err){
+                return res.status(400).json({
+                    ok: false,
+                    err
+                });
+            }
+
+            console.log(users);
+            User.count({}, (err,cont) =>{
+
+                res.json({
+                    ok:true,
+                    users,
+                    total: cont
+                })
+            })
+        });
 });
 
 //POST User
