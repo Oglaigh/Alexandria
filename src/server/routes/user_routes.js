@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     let limite = req.query.limite || 5;
     limit = Number(limite);
 
-    User.find({})
+    User.find({status: true})
         .skip(desde)
         .limit(limite)
         .exec( (err, users) => {
@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
             }
 
             console.log(users);
-            User.count({}, (err,cont) =>{
+            User.count({status: true}, (err,cont) =>{
 
                 res.json({
                     ok:true,

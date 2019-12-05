@@ -6,7 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser')
 
 //Conexion a la Base de Datos
-require('../database');
+require('./config/database');
 
 //Settings
 server.set('port', process.env.port)
