@@ -71,10 +71,10 @@ router.post('/', async (req, res) => {
 })
 
 //PUT User
-router.put('/:id', async (req, res) => {
+router.put('/:id', function (req, res) {
     
     let id = req.params.id;
-    let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado']);
+    let body = _.pick(req.body, ['name', 'img', 'role', 'status']);
 
     User.findByIdAndUpdate(id ,body,{new: true, runValidators: true}, (err, userDB) => {
 
@@ -83,7 +83,11 @@ router.put('/:id', async (req, res) => {
                 ok: false,
                 err
             });
-        }
+        };
+
+
+        console.log(userDB);
+        
         res.json({
             ok: true,
             user: userDB
@@ -91,4 +95,40 @@ router.put('/:id', async (req, res) => {
     });
 })
 
+
+//DELETE USER
+router.delete('/:id', function (req,res) {
+    
+    let id = req.params.id;
+
+    let changeStatus = {
+        status: false
+    };
+
+
+    User.findByIdAndUpdate(id, changeStatus , {new: true}, (err, deletedUser) => {
+
+        if (err) {
+            return res.status(400).json({
+                ok: false,
+                err
+            });
+        };
+
+        if(!deletedUser) {
+            return res.status(400).json({
+                ok: false,
+                err:{
+                    message: 'Usuario no encontrado'
+                }
+            });
+        }
+
+        console.log(deletedUser);
+        res.json({
+            ok: true,
+            deletedUser
+        });
+    });
+})
 module.exports = router;
