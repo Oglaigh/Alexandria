@@ -7,8 +7,10 @@ const router = express.Router();
 
 const User = require('../models/user');
 
+const {verificateToken, verificateAdminRole} = require('../middlewares/authentication');
+
 //GET User (Paginado)
-router.get('/', async (req, res) => {
+router.get('/', [verificateToken, verificateAdminRole],async (req, res) => {
     
     let desde = req.query.desde || 0;
     desde = Number(desde);
@@ -41,7 +43,7 @@ router.get('/', async (req, res) => {
 });
 
 //POST User
-router.post('/', async (req, res) => {
+router.post('/', verificateToken, async (req, res) => {
     const {name, email, password,google,role,img,status} = req.body;
 
     let user = new User({
@@ -71,7 +73,7 @@ router.post('/', async (req, res) => {
 })
 
 //PUT User
-router.put('/:id', function (req, res) {
+router.put('/:id', verificateToken, function (req, res) {
     
     let id = req.params.id;
     let body = _.pick(req.body, ['name', 'img', 'role', 'status']);
@@ -97,7 +99,7 @@ router.put('/:id', function (req, res) {
 
 
 //DELETE USER
-router.delete('/:id', function (req,res) {
+router.delete('/:id', verificateToken, function (req,res) {
     
     let id = req.params.id;
 
