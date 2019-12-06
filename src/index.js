@@ -2,14 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import Login from './Login';
 import * as serviceWorker from './serviceWorker';
 
 
-const logueado = true;
+const logueado = false;
 
 //TOD: ACA SE TIENE DEFINIR LA LOGICA CON LAS SESIONES Y EN CASO DE OK
 ReactDOM.render(
-    logueado ? <App/> : <div>No esta logueado</div>
+    logueado ? <App/> : <Login/>
     , document.getElementById('root'));
 
 
