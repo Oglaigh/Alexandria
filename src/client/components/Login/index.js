@@ -3,23 +3,18 @@ import { Button, Form, Card } from 'react-bootstrap';
 import axios from 'axios';
 
 const MyLogin = () => {
-    const [usuario, setUsuario] = useState(null);
-    const [password, setPassword] = useState(null);
+    const [usuario, setUsuario] = useState("andrada.flavio@outlook.com");
+    const [password, setPassword] = useState("fa123");
     
     const loguearse = async (e) => {
         e.preventDefault();
         // Logica para llamar al server
         if(usuario !== '' && password !== '') {
-            const res = await axios.post('http://localhost/api/login', {user: usuario, password: password})
-            // .catch( function (error) {
-            //     console.log(error);
-            // });
-            
+            const res = await axios.post('http://localhost/api/login', {email: usuario, password: password});
             console.log(res);
-            try {
-                //res.data 
-            } catch(error) {
-                console.log(error);
+
+            if(res.data){
+                window.localStorage.setItem('token', res.data.token);
             }
         }
     }
@@ -30,7 +25,7 @@ const MyLogin = () => {
             <Form onSubmit={loguearse}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Correro Electrónico</Form.Label>
-                    <Form.Control name="email" type="email" placeholder="Enter email" value = "andrada.flavio@outlook.com"
+                    <Form.Control name="email" type="email" placeholder="Enter email"
                     onChange={(evt) => {
                         setUsuario(evt.currentTarget.value)
                       }
@@ -43,7 +38,7 @@ const MyLogin = () => {
 
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Contraseña</Form.Label>
-                    <Form.Control name= "password" type="password" placeholder="Password" value = "fa123" 
+                    <Form.Control name= "password" type="password" placeholder="Password"
                     onChange={(evt) => {
                         setPassword(evt.currentTarget.value)
                       }
