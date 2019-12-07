@@ -12,7 +12,7 @@ require('./config/database');
 //Settings
 server.set('port', process.env.port);
 server.use(express.static(path.join(__dirname, 'build')));
-server.use(cors);
+server.use(cors());
 
 /*Middlewares*/
 server.use(express.json());
