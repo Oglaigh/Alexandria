@@ -3,14 +3,16 @@ require('./config/config');
 const express = require('express');
 const server = express();
 const path = require('path');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //Conexion a la Base de Datos
 require('./config/database');
 
 //Settings
-server.set('port', process.env.port)
+server.set('port', process.env.port);
 server.use(express.static(path.join(__dirname, 'build')));
+server.use(cors);
 
 /*Middlewares*/
 server.use(express.json());

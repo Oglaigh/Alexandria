@@ -12,6 +12,7 @@ const router = express.Router();
 router.post('/',(req,res) =>{
 
     let body = req.body;
+    console.log(body);
 
     User.findOne({email: body.email}, (err, userDB) =>{
 
@@ -43,6 +44,8 @@ router.post('/',(req,res) =>{
         let token = jwt.sign({
             user: userDB //payload
         },process.env.SEED_AUTH,{expiresIn: process.env.EXPIRE_TOKEN})
+
+        console.log(userDB);
 
         res.json({
             ok: true,
