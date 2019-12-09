@@ -39,7 +39,7 @@ router.post('/',(req,res) =>{
                     message: "Contraseña incorrecta"
                 }
             });
-        }
+        };
 
         let token = jwt.sign({
             user: userDB //payload
