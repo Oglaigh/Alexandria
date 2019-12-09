@@ -9,6 +9,8 @@ import CustomNav from './client/components/Nav';
 import './App.css';
 import AddBook from './client/components/Books/AddBook';
 
+const usuario = JSON.parse( window.localStorage.getItem('user'));
+
 
 class App extends Component{
   constructor(props){
@@ -18,6 +20,7 @@ class App extends Component{
     }
   }
 
+  
 
   eliminar(id){
     axios
@@ -30,12 +33,48 @@ class App extends Component{
       })
   }
 
-  editar(book){
-    
+  ceder(book){
+    axios
+      .put(`http://localhost/api/books/${book._id}`,
+      {
+        title: book.title,
+        author: book.author,
+        user: book.requestUser,
+        requested: false,
+        owned: new Date()
+        
+      })
+      .then(res =>{
+        console.log(res);
+      })
+      .catch(error=>{
+        console.log(error);
+      })
+  }
+
+  solicitar(book){
+    axios
+      .put(`http://localhost/api/books/${book._id}`,
+      {
+        title: book.title,
+        author: book.author,
+        user: book.user,
+        requested: true,
+        requestUser: usuario,
+        owned: book.owned
+        
+      })
+      .then(res =>{
+        console.log(res);
+      })
+      .catch(error=>{
+        console.log(error);
+      })
   }
 
 
   componentDidMount(){
+    
     axios
       .get('http://localhost/api/books')
       .then(res => {
@@ -76,10 +115,26 @@ class App extends Component{
                         <tr key={book._id}>
                           <td>{book.title}</td>
                           <td>{book.author}</td>
-                          <td></td>
-                          <td></td>
-                          <td><Button onClick={()=>this.editar(book)} variant="warning">Editar</Button></td>
-                          <td><Button onClick={()=>this.eliminar(book._id)} variant="danger">Eliminar</Button></td>
+                          <td>{book.user.name}</td>
+                          <td>{book.owned}</td>
+                          <Switch>
+                            <Route component={()=>{
+                              return usuario._id === book.user._id ?
+                              <Route component={()=>{
+                                return book.requested === true ?
+                                <td><Button onClick={()=>this.ceder(book)} variant="success">Ceder</Button></td>
+                                : <td><Button onClick={()=>this.eliminar(book._id)} variant="danger">Eliminar</Button></td>
+                              }}/>
+                              :
+                              <Route component={()=>{
+                                return book.requested === true?
+                                <td><Button variant="secondary" disabled>Solicitar</Button></td>
+                                : <td><Button onClick={()=>this.solicitar(book)} variant="warning">Solicitar</Button></td>
+                              }}/> 
+                              
+                            }}
+                            />
+                          </Switch>
                         </tr>
                       )
                     })

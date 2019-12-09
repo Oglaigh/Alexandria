@@ -1,4 +1,5 @@
 const express = require('express');
+var mongoose = require('mongoose');
 const router = express.Router();
 
 const Books = require('../models/book');
@@ -28,13 +29,15 @@ router.post('/', async (req, res) => {
 //PUT User
 
 router.put('/:id', async (req, res) => {
-    const {title, author, library,user,owned} = req.body;
+    const {title, author, library,user,owned,requested,requestUser} = req.body;
     const newBook = {
         title,
         author,
         library,
         user,
-        owned
+        owned,
+        requested,
+        requestUser
     };
     await Books.findByIdAndUpdate(req.params.id, newBook);
     res.json({status: 'Book successfully updated!'});
@@ -46,14 +49,20 @@ router.delete('/:id', async (req, res)=>{
 });
 
 router.get('/:id', async (req, res) => {
-    const book = await Books.findById(req.params.id);
+    var id = mongoose.Types.ObjectId(req.params.id);
+    const book = await Books.findById(id);
     res.json(book);
 });
 
-router.get('/:title', async (req, res) =>{
-    const book = await Books.find(x => x.title == req.params.title);
-    res.json(book);
-})
+//router.get('/:title', async (req, res) =>{
+  //  const book = await Books.find(x => x.title === req.params.title);
+    //res.json(book);
+//})
 
+router.get('/user/:userId'), async (req,res)=>{
+    //var user = mongoose.Types.ObjectId(req.params.id);
+    //const userBooks = await Books.find({ _id: user});
+    res.json({"Response":true});
+}
 
 module.exports = router;

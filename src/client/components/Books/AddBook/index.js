@@ -10,11 +10,13 @@ const AddBook = () => {
         e.preventDefault();
         // Logica para llamar al server
         if(titulo !== '' && autor !== '') {
+            var user = JSON.parse(window.localStorage.getItem('user'));
             const res = await axios.post('http://localhost/api/books', 
                 {
                     title: titulo,
                     author: autor,
-                    user: JSON.parse(window.localStorage.getItem('user'))
+                    user: user,
+                    owned: new Date()
                 }
             );
             if(res.data.code === 200)
