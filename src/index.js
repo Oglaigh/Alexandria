@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom
 
 import './index.css';
 import App from './App';
-import Login from './Login';
+import Login from './client/components/Login';
 import * as serviceWorker from './serviceWorker';
 
 
@@ -16,8 +16,10 @@ const logueado = window.localStorage.getItem('token')? true : false;
 ReactDOM.render(
     <Router>
         <Switch>
-            <Route path='/login' component={Login}/>
-            <Route exact path='/' component={() => {
+            <Route path='/login' component={()=>{
+                return logueado ? <Redirect to='/'/> : <Login/>
+            }}/>
+            <Route path='/' component={() => {
                 return logueado ? <App/> : <Redirect to='/login'/>
             }}/>
             <Route path='*' component={()=><Redirect to='/'/>}

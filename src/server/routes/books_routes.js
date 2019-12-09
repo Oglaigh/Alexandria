@@ -12,12 +12,12 @@ router.get('/', async (req, res) => {
 
 //POST User
 router.post('/', async (req, res) => {
-    const {title, author, library,owner,owned} = req.body;
+    const {title, author, library,user,owned} = req.body;
     const book = new Books({
         title: title,
         author: author,
         library: library,
-        owner: owner,
+        user: user,
         owned: owned
     });
     console.log(book);
@@ -28,12 +28,12 @@ router.post('/', async (req, res) => {
 //PUT User
 
 router.put('/:id', async (req, res) => {
-    const {title, author, library,owner,owned} = req.body;
+    const {title, author, library,user,owned} = req.body;
     const newBook = {
         title,
         author,
         library,
-        owner,
+        user,
         owned
     };
     await Books.findByIdAndUpdate(req.params.id, newBook);

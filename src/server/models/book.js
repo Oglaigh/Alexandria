@@ -5,7 +5,7 @@ const BookSchema = new Schema({
     title: {type: String, required: true},
     author: {type: String, required: true},
     library: {type: String, required: false},
-    owner: {type: String, required: true},
+    user: {type: Object, required: true},
     owned: {type: Date, required: false}
 })
 

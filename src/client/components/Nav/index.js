@@ -2,22 +2,25 @@ import React from 'react';
 import { Button, NavDropdown, Navbar, Form, FormControl,Nav } from 'react-bootstrap';
 
 
-class CustomNav extends React.Component{
-    render(){
+
+const CustomNav = () =>{
+
+    const cerrarSesion = () =>{
+        window.localStorage.removeItem('token');
+        window.localStorage.removeItem('user');
+    }
+
         return (
             <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">Alexandria</Navbar.Brand>
+            <Navbar.Brand href="/">Alexandria</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#link">Link</Nav.Link>
+                        <Nav.Link href="/">Home</Nav.Link>
                         <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+                            <NavDropdown.Item href="/books/new">Agregar Libro</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                            <NavDropdown.Item href="/login" onClick={cerrarSesion}>Cerrar Sesión</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Form inline>
@@ -27,7 +30,7 @@ class CustomNav extends React.Component{
                 </Navbar.Collapse>
             </Navbar>
         )
-    }
+    
 }
 
 export default CustomNav;

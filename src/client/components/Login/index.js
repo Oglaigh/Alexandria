@@ -2,7 +2,7 @@ import React , {useState} from 'react';
 import { Button, Form, Card } from 'react-bootstrap';
 import axios from 'axios';
 
-const MyLogin = () => {
+const Login = () => {
     const [usuario, setUsuario] = useState("andrada.flavio@outlook.com");
     const [password, setPassword] = useState("fa123");
     
@@ -14,6 +14,7 @@ const MyLogin = () => {
             console.log(res);
 
             if(res.data){
+                window.localStorage.setItem('user',JSON.stringify( res.data.user));
                 window.localStorage.setItem('token', res.data.token);
             }
         }
@@ -59,4 +60,4 @@ const MyLogin = () => {
     );
 }
 
-export default MyLogin;
+export default Login;
