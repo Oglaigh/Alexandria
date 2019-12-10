@@ -24,7 +24,7 @@ class App extends Component{
 
   eliminar(id){
     axios
-      .delete(`http://localhost/api/books/${id}`)
+      .delete(`ec2-52-91-188-152.compute-1.amazonaws.com:4000/api/books/${id}`)
       .then(res => {
         console.log(res);
       })
@@ -35,7 +35,7 @@ class App extends Component{
 
   ceder(book){
     axios
-      .put(`http://localhost/api/books/${book._id}`,
+      .put(`ec2-52-91-188-152.compute-1.amazonaws.com:4000/api/books/${book._id}`,
       {
         title: book.title,
         author: book.author,
@@ -54,7 +54,7 @@ class App extends Component{
 
   solicitar(book){
     axios
-      .put(`http://localhost/api/books/${book._id}`,
+      .put(`ec2-52-91-188-152.compute-1.amazonaws.com:4000/api/books/${book._id}`,
       {
         title: book.title,
         author: book.author,
@@ -76,7 +76,7 @@ class App extends Component{
   componentDidMount(){
     
     axios
-      .get('http://localhost/api/books')
+      .get('ec2-52-91-188-152.compute-1.amazonaws.com:4000/api/books')
       .then(res => {
         this.setState({
           books : res.data
